@@ -1,0 +1,211 @@
+<head>
+    <meta charset="utf-8">
+    <title>Modeller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <a class="brand" href="#">Modeller</a>
+
+          <div class="nav-collapse collapse">
+
+            <ul class="nav">
+
+              <li class="active"><a href="#">Home</a></li>
+
+              <li><a href="#" onClick="showAbout()">About</a></li>
+
+              <li class="dropdown">
+                {{#if currentUser}}
+                  {{>models_dropdown}}
+                {{/if}}
+              </li>
+
+            </ul>
+
+          </div><!--/.nav-collapse -->
+
+          <div class ="nav pull-right">
+            {{loginButtons}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        {{>workspace_wrapper}}
+    </div> <!-- /container -->
+
+</body>
+
+
+<!--*********Templates*********-->
+
+
+<!-- workspace -->
+
+<template name="workspace_wrapper">
+  {{#if wehaveamodel}}
+
+    <h1><div id="modelrevisetitle">{{currentmodelname}}</div></h1>
+
+    <div class="row">
+      <div class="span12" class="well" id="workspace">
+        <div class="well">
+          <div class="row-fluid" id="category_list">
+            {{#each cat_div}}
+              {{>category_view}}
+            {{/each}}
+          </div>
+          <div class="row">
+            <a href="#" class="btn span3" id="addcat">Add a category</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+
+<!-- models controls -->
+
+<template name="models_dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Models<b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#" id="newModel">New model</a></li>
+      {{#each model_li}}
+        {{>modeldd}}
+      {{/each}}
+  </ul>
+</template>
+
+<template name="modeldd">
+  <li><a href="#">
+    {{title}}
+  </a></li>
+</template>
+
+<template name="modelmodal">
+  <div id="newmodelmodal" class="modal fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-header">
+      <h3 id="myModalLabel">New Model</h3>
+    </div>
+    <div class="modal-body">
+      <p>Please type in a name for your model.</p>
+    </div>
+    <div class="modal-footer">
+      <div class="navbar-form pull-left">
+        <input type="text" class="span2" id="newmodalname">
+        <button type="submit" class="btn" onClick="submitNewModel()">
+          Add Model
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<!-- category controls -->
+
+<template name="category_view">
+  <div class="category">
+    <h3><div id="title">{{title}}</div></h3>
+    <div id="catdesc">{{{catdescblock}}}</div>
+    <ul class="nav nav-list">
+      {{#each node_div}}
+        {{>node_view}}
+      {{/each}}
+      <li class="divider"></li>
+      <li><a href="#" id="addnode"><i class="icon-plus"></i> Add a node...</a></li>
+    </ul>
+  </div>
+  {{{arrow}}}
+</template>
+
+<template name="catmodal">
+  <div id="newcatmodal" class="modal fade">
+    <div class="modal-header">
+      <h3 id="myCatLabel">New Category</h3>
+    </div>
+    <div class="modal-body">
+      <p>Please type in a name for your category.</p>
+    </div>
+    <div class="modal-footer">
+      <div class="navbar-form pull-left">
+        <input type="text" class="span2" id="newcatname">
+        <button type="submit" class="btn" onClick="submitNewCategory()">
+          Add Category
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<!-- node controls -->
+
+<template name="node_view">
+  <li class="node-controls">
+    <a href="#">{{title}}</a>
+  </li>
+</template>
+
+<template name="nodemodal">
+  <div id="newnodemodal" class="modal fade">
+    <div class="modal-header">
+      <h3 id="myNodeLabel">New Node</h3>
+    </div>
+    <div class="modal-body">
+      <p>Please type in a name.</p>
+    </div>
+    <div class="modal-footer">
+      <div class="navbar-form pull-left">
+        <input type="text" class="span2" id="newnodename">
+        <button type="submit" class="btn" onClick="submitNewNode()">
+          Add Node
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- about modal -->
+
+<template name="aboutmodal">
+  <div id="about_modal" class="modal fade">
+    <div class="modal-header">
+      <h3>About this site</h3>
+    </div>
+    <div class="modal-body">
+      <p>This site was developed by <a href="http://hypothete.com" target="blank">Duncan Alexander</a> and Lindsey Smith as a free, open source logic modelling tool.</p>
+    </div>
+    <div class="modal-footer">
+      <div class="navbar-form pull-left">
+        <button type="submit" class="btn" onClick="hideAbout()">
+          Cool story, bro.
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
