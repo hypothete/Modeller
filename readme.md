@@ -8,7 +8,7 @@ This is a Meteor v0.57 web app that includes the following smart packages:
 * Bootstrap
 * jQuery
 * Backbone (currently unused, planned)
-* Meteor-X-Editable-Bootstrap
+* Meteor-X-Editable-Bootstrap (download here: https://github.com/nate-strauser/meteor-x-editable-bootstrap)
 * Preserve-Inputs
 
 To run Modeller, you must have an install of Meteor that is v0.57 or older. In the command prompt, navigate to the root folder and run meteor. Modeller will be displayed in your browser at http://localhost:3000.
