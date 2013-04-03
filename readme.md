@@ -1,4 +1,4 @@
-Modeller (tentative title) v. 0.1.0 - 3/26/2013
+Modeller (tentative title) - 0.1.2 4/3/13
 
 A logic modeling tool in development by Duncan Alexander (duncan@hypothete.com) and Lindsey Smith.
 
