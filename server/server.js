@@ -26,6 +26,7 @@
 
 ////////Collection permissions - models
 
+/*
 	Models.allow({
 		insert: function(model){
 			if(this.userId != null){
@@ -58,7 +59,7 @@
 			}
 		}
 
-	});
+	}); */
 
 /////////Server methods for updating collections
 
@@ -78,12 +79,9 @@
 				collaborators:[],
 				categories:[]
 			};
-
 			Models.insert(adding_model, function(error, result){
 				return Models.findOne({_id: result});
 			});
-
-			
 		},
 
 		updateModel: function(modelId, field, data){
@@ -91,41 +89,33 @@
 			helper[field] = data;
 			Models.update({_id: modelId}, {$set: helper});
 			//thanks jan-glx
-			return Models.findOne({_id: modelId});
 		},
 
 		removeModel: function(modelId){
 			Models.remove({_id: modelId});
-			return Models.findOne({});
-			//return another model so the view can refocus
 		},
 
 		addCategory: function(modelId, data){
 			Models.update({_id: modelId}, {$push: {categories: data}});
 			var position = Models.findOne({_id: modelId}).categories.length - 1;
-			return Models.findOne({_id: modelId}).categories[position];
-			//returns the last category pushed to the array
 		},
 
-		updateCategoryField: function(modelId, category_to_mod, field, data){
+		updateCategoryField: function(modelId, cattitle, field, data){
 			Models.find({_id: modelId}).forEach(function(model){
 				model.categories.forEach(function(category){
-					if(_.isEqual(category, category_to_mod)){
+					if(_.isEqual(category.title, cattitle)){
 						category[field] = data;
 						Models.update({_id: modelId},{$set:{categories: model.categories}});
-						console.log(category.title + ' ' + category[field]);
-						return category; //this makes it to the server, but not the client
-						//try to figure out why the object is different at the client
 					}
 				});
 			});
 		},
 
-		addNode: function(modelId, category_to_mod, data){
+		addNode: function(modelId, cattitle, data){
 			//iterate through the categories until the right one is identified, push a node
 			Models.find({_id: modelId}).forEach(function(model){
 				model.categories.forEach(function(category){
-					if(_.isEqual(category, category_to_mod)){
+					if(_.isEqual(category.title, cattitle)){
 						category.nodes.push(data);
 					}
 				});
